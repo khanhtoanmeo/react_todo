@@ -7,6 +7,7 @@ function useFetch(url, onLoad) {
 
   const fetchData = useCallback(async () => {
     setLoading(true);
+    //todo: đoạn này mình áp dụng luôn fetchData có sẵn có được không ?
     const response = await fetch(url);
     const data = await response.json();
     setResult(data);

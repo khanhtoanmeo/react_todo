@@ -19,9 +19,11 @@ function Todos() {
 
   return (
     <div className="todo-list">
-      {loading && <p>Loading todos</p>}
-      {todos.length > 0 &&
-        todos.map((todo) => <Todo key={todo.id} todo={todo} />)}
+      {loading ? (
+        <h1>Loading todos</h1>
+      ) : (
+        todos.map((todo) => <Todo key={todo.id} todo={todo} />)
+      )}
     </div>
   );
 }

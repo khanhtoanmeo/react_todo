@@ -1,7 +1,6 @@
 import React, { useContext, useState } from "react";
-import "../App/App.css";
 import TodosContext from "../../store/todosContext";
-import postFetch from "../../utils/postFetch";
+import fetchData from "../../utils/fetchData";
 
 export function TodoForm() {
   const [value, setValue] = useState("");
@@ -9,10 +8,12 @@ export function TodoForm() {
 
   const addTodo = async (title) => {
     const newTodo = { title, isCompleted: false };
-    const { success, todo } = await postFetch(
-      "http://localhost:8888/api/todos",
-      newTodo
-    );
+    const dataConfig = {
+      url: "http://localhost:8888/api/todos",
+      method: "post",
+      data: newTodo,
+    };
+    const { success, todo } = await fetchData(dataConfig);
     if (success) setTodos((todos) => [...todos, todo]);
     else alert("Fail to add todo");
   };

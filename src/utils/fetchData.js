@@ -1,7 +1,7 @@
-async function updateFetch(url, data) {
+async function fetchData({ url, method, data = {} }) {
   const res = await fetch(url, {
     body: JSON.stringify(data),
-    method: "put",
+    method,
     headers: {
       "Content-Type": "application/json",
     },
@@ -9,4 +9,4 @@ async function updateFetch(url, data) {
   return res.json();
 }
 
-export default updateFetch;
+export default fetchData;

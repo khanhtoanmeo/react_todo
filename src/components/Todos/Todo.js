@@ -1,27 +1,30 @@
 import React, { useContext } from "react";
-import "../App/App.css";
 import TodosContext from "../../store/todosContext";
-import updateFetch from "../../utils/updateFetch";
-import deleteFetch from "../../utils/deleteFetch";
+
+import fetchData from "../../utils/fetchData";
 export function Todo({ todo }) {
   const { setTodos } = useContext(TodosContext);
   const { id, title, isCompleted } = todo;
 
   const removeTodo = async () => {
-    const { success } = await deleteFetch(
-      `http://localhost:8888/api/todo/${id}`
-    );
+    const dataConfig = {
+      url: `http://localhost:8888/api/todo/${id}`,
+      method: "delete",
+    };
+    const { success } = await fetchData(dataConfig);
     if (success) setTodos((todos) => todos.filter((todo) => todo.id !== id));
     else alert("Fail to delete todo");
   };
 
   const completeTodo = async () => {
-    const { success } = await updateFetch(
-      `http://localhost:8888/api/todo/${id}`,
-      {
+    const dataConfig = {
+      url: `http://localhost:8888/api/todo/${id}`,
+      method: "put",
+      data: {
         isCompleted: true,
-      }
-    );
+      },
+    };
+    const { success } = await fetchData(dataConfig);
 
     if (success)
       setTodos((todos) =>

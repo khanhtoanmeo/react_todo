@@ -7,41 +7,46 @@ export function Todo({ todo }) {
   const { id, title, isCompleted } = todo;
 
   const removeTodo = async () => {
-    const requestConfig = {
-      url: `todo/${id}`,
-      method: "delete",
-    };
-    const { success } = await fetchData(requestConfig);
-    if (success) setTodos((todos) => todos.filter((todo) => todo.id !== id));
-    else alert("Fail to delete todo");
+    try {
+      const requestConfig = {
+        url: `todo/${id}`,
+        method: "delete",
+      };
+      const { success } = await fetchData(requestConfig);
+      if (!success) return alert("Fail to delete todo");
+      setTodos((todos) => todos.filter((todo) => todo.id !== id));
+    } catch (error) {
+      alert(error.message);
+    }
   };
-
   const completeTodo = async () => {
-    const requestConfig = {
-      url: `todo/${id}`,
-      method: "put",
-      data: {
-        isCompleted: true,
-      },
-    };
-    const { success } = await fetchData(requestConfig);
+    try {
+      const requestConfig = {
+        url: `todo/${id}`,
+        method: "put",
+        data: {
+          isCompleted: true,
+        },
+      };
+      const { success } = await fetchData(requestConfig);
 
-    if (success)
+      if (!success) return alert("Fail to mark to do as completed");
       setTodos((todos) =>
         todos.map((todo) => {
           if (todo.id === id) todo.isCompleted = true;
           return todo;
         })
       );
-    else alert("Fail to mark to do as completed");
+    } catch (error) {
+      alert(error.message);
+    }
   };
   return (
     <div
       className="todo"
       style={{ textDecoration: isCompleted ? "line-through" : "" }}
     >
-      {/*todo :anh nghĩ nên chuyển cái title vào một thẻ div + validate trường hợp có dâu cách và không nhập gì nhé */}
-      {title}
+      <div>{title.trim()}</div>
       <div>
         <button onClick={() => completeTodo()}>Complete</button>
         <button onClick={() => removeTodo()}>x</button>

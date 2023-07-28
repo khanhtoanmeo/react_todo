@@ -7,21 +7,24 @@ export function TodoForm() {
   const { setTodos } = useContext(TodosContext);
 
   const addTodo = async (title) => {
-    const newTodo = { title, isCompleted: false };
-    const requestConfig = {
-      url: "todos",
-      method: "post",
-      data: newTodo,
-    };
-    const { success, todo } = await fetchData(requestConfig);
-    //todo : chỗ này anh thấy viết thế này oke hơn sửa lại mấy cái khác cũng như thế nhe + khii call api thì nên bỏ try catch vào nha
-    if(!success) return alert("Fail to add todo");
-    setTodos((todos) => [...todos, todo]);
+    try {
+      const newTodo = { title, isCompleted: false };
+      const requestConfig = {
+        url: "todos",
+        method: "post",
+        data: newTodo,
+      };
+      const { success, todo } = await fetchData(requestConfig);
+      if (!success) return alert("Fail to add todo");
+      setTodos((todos) => [...todos, todo]);
+    } catch (error) {
+      alert(error.message);
+    }
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (!value) return;
+    if (!value.trim()) return alert("Please enter something meaningful");
     addTodo(value);
     setValue("");
   };

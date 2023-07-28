@@ -1,5 +1,4 @@
 const BASE_URL = "http://localhost:8888/api/";
-//todo sửa lại mấy chỗ call api hộ anh nhé , anh nghĩ viết như này sẽ ổn hơn , nếu cần sau mình có thể chuyển base url sang file env để mình dễ config chẳng hạn
 async function fetchData({
   url = BASE_URL,
   method = "get",

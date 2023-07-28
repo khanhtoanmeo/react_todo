@@ -5,14 +5,9 @@ import useFetch from "../../hooks/useFetch";
 function Todos() {
   const { todos, setTodos } = useContext(TodosContext);
 
-  //todo: so chỗ này lại đẻ dependencies này nhỉ ?
-
-  const dataLoadedHandler = useCallback(
-    (data) => {
-      setTodos(data);
-    },
-    [setTodos]
-  );
+  const dataLoadedHandler = useCallback((data) => {
+    setTodos(data);
+  }, []);
 
   const { loading } = useFetch("todos", dataLoadedHandler);
 

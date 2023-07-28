@@ -1,17 +1,18 @@
 import { useCallback } from "react";
 import { useEffect, useState } from "react";
+import fetchData from "../utils/fetchData";
 
 function useFetch(url, onLoad) {
   const [loading, setLoading] = useState(false);
   const [result, setResult] = useState(null);
 
-  const fetchData = useCallback(async () => {
+  const fetching = useCallback(async () => {
     setLoading(true);
-    //todo: đoạn này mình áp dụng luôn fetchData có sẵn có được không ?
-    const response = await fetch(url);
-    const data = await response.json();
+    const requestConfig = {
+      url,
+    };
+    const data = await fetchData(requestConfig);
     setResult(data);
-    console.log(data);
     if (data.data) {
       onLoad(data.data);
     }
@@ -19,8 +20,8 @@ function useFetch(url, onLoad) {
   }, [url, onLoad]);
 
   useEffect(() => {
-    fetchData();
-  }, [fetchData]);
+    fetching();
+  }, [fetching]);
 
   return { result, loading };
 }

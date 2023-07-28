@@ -12,10 +12,7 @@ function Todos() {
     [setTodos]
   );
 
-  const { loading } = useFetch(
-    "http://localhost:8888/api/todos",
-    dataLoadedHandler
-  );
+  const { loading } = useFetch("todos", dataLoadedHandler);
 
   return (
     <div className="todo-list">

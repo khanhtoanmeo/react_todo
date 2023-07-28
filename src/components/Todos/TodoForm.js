@@ -8,12 +8,12 @@ export function TodoForm() {
 
   const addTodo = async (title) => {
     const newTodo = { title, isCompleted: false };
-    const dataConfig = {
-      url: "http://localhost:8888/api/todos",
+    const requestConfig = {
+      url: "todos",
       method: "post",
       data: newTodo,
     };
-    const { success, todo } = await fetchData(dataConfig);
+    const { success, todo } = await fetchData(requestConfig);
     if (success) setTodos((todos) => [...todos, todo]);
     else alert("Fail to add todo");
   };

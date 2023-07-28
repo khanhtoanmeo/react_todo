@@ -7,24 +7,24 @@ export function Todo({ todo }) {
   const { id, title, isCompleted } = todo;
 
   const removeTodo = async () => {
-    const dataConfig = {
-      url: `http://localhost:8888/api/todo/${id}`,
+    const requestConfig = {
+      url: `todo/${id}`,
       method: "delete",
     };
-    const { success } = await fetchData(dataConfig);
+    const { success } = await fetchData(requestConfig);
     if (success) setTodos((todos) => todos.filter((todo) => todo.id !== id));
     else alert("Fail to delete todo");
   };
 
   const completeTodo = async () => {
-    const dataConfig = {
-      url: `http://localhost:8888/api/todo/${id}`,
+    const requestConfig = {
+      url: `todo/${id}`,
       method: "put",
       data: {
         isCompleted: true,
       },
     };
-    const { success } = await fetchData(dataConfig);
+    const { success } = await fetchData(requestConfig);
 
     if (success)
       setTodos((todos) =>

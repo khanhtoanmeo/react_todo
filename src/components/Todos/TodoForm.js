@@ -14,8 +14,9 @@ export function TodoForm() {
       data: newTodo,
     };
     const { success, todo } = await fetchData(requestConfig);
-    if (success) setTodos((todos) => [...todos, todo]);
-    else alert("Fail to add todo");
+    //todo : chỗ này anh thấy viết thế này oke hơn sửa lại mấy cái khác cũng như thế nhe + khii call api thì nên bỏ try catch vào nha
+    if(!success) return alert("Fail to add todo");
+    setTodos((todos) => [...todos, todo]);
   };
 
   const handleSubmit = (e) => {

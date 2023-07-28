@@ -40,6 +40,7 @@ export function Todo({ todo }) {
       className="todo"
       style={{ textDecoration: isCompleted ? "line-through" : "" }}
     >
+      {/*todo :anh nghĩ nên chuyển cái title vào một thẻ div + validate trường hợp có dâu cách và không nhập gì nhé */}
       {title}
       <div>
         <button onClick={() => completeTodo()}>Complete</button>
